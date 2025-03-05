@@ -1,34 +1,37 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
-import {PublicRoutes} from './public';
-import {PrivateRoutes} from './private';
+import {HomeScreen} from '../screens';
+import {MovieDetailScreen} from '../screens/Detail';
+import {APP_SCREEN, RootStackParamList} from './screen-type';
+import {TabNavigator} from './tab-navigator';
+import {navigationRef} from './navigation-services';
+import {AllMovieScreen} from '../screens/AllMovies';
 
-export const _routes = {
-  publics: 'Public-routes',
-  privates: 'Private-routes',
-  home_page: 'Home-page',
-  profile_page: 'Profile-page',
-};
-
-export const AuthorizeStack = createNativeStackNavigator();
+export const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const Navigations: React.FC = () => {
-  //define your authorizator flag
-  const flag = true;
   return (
-    <NavigationContainer>
-      <AuthorizeStack.Navigator initialRouteName={_routes.home_page}>
-        {flag ? (
-          <AuthorizeStack.Group>
-            {PublicRoutes.map(screen => screen)}
-          </AuthorizeStack.Group>
-        ) : (
-          <AuthorizeStack.Group>
-            {PrivateRoutes.map(screen => screen)}
-          </AuthorizeStack.Group>
-        )}
-      </AuthorizeStack.Navigator>
+    <NavigationContainer ref={navigationRef}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName={APP_SCREEN.TAB_SCREEN}>
+        <Stack.Screen name={APP_SCREEN.TAB_SCREEN} component={TabNavigator} />
+        <Stack.Screen name={APP_SCREEN.HOME_SCREEN} component={HomeScreen} />
+        <Stack.Screen
+          name={APP_SCREEN.MOVIES_DETAIL_SCREEN}
+          component={MovieDetailScreen}
+        />
+        <Stack.Screen
+          name={APP_SCREEN.ALL_MOVIES_SCREEN}
+          component={AllMovieScreen}
+          options={{
+            headerShown: true,
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };

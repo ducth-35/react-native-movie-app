@@ -29,7 +29,7 @@ Api.interceptors.response.use(
 export default Api;
 
 export const _endpoints = {
-  todo: {
-    getOne: `todos/:id`,
+  home: {
+   data: `todos/:id`,
   },
 };
