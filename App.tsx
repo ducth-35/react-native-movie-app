@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Navigations} from './src/navigators';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import BootSplash from 'react-native-bootsplash';
 
 const _queryClient = new QueryClient();
 
-function App(): React.JSX.Element {
+const App = () => {
+  useEffect(() => {
+    setTimeout(async () => {
+      await BootSplash.hide({fade: true});
+    }, 500);
+  }, []);
+
   return (
     <>
       <QueryClientProvider client={_queryClient}>
@@ -12,6 +19,6 @@ function App(): React.JSX.Element {
       </QueryClientProvider>
     </>
   );
-}
+};
 
 export default App;
