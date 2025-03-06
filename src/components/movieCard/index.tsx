@@ -13,15 +13,15 @@ export const MovieCard = ({movie, onPress, style}: MovieCardProps) => {
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.container, style]}>
         <ImageViewWithProgess
-          imageUri={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-          progress={movie.vote_average}
+          imageUri={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
+          progress={movie?.vote_average}
         />
         <Text numberOfLines={1} style={styles.title}>
-          {movie.title ?? movie.name}
+          {movie?.title ?? movie?.name}
         </Text>
-        {(movie.release_date || movie.first_air_date) && (
+        {(movie?.release_date || movie?.first_air_date) && (
           <Text style={styles.date}>
-            {movie.release_date ?? movie.first_air_date}
+            {movie?.release_date ?? movie?.first_air_date}
           </Text>
         )}
       </View>

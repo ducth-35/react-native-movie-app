@@ -1,92 +1,100 @@
+import Api from '.';
 import {shuffle} from '../utils';
 
 const API_KEY = process.env.API_KEY;
 
-export async function fetchMoviesWithType(
+export const fetchMoviesWithType = async (
   page: number = 1,
   type: string,
-): Promise<MovieResponse> {
+): Promise<MovieResponse> => {
   try {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${type}?api_key=1b693bbcc6a6449176aeacae765433e2&page=${page}`,
-      {method: 'GET'},
+    const response = await Api.get(
+      `/movie/${type}?api_key=${API_KEY}&page=${page}`,
     );
-    if (!response.ok) {
-      throw new Error('An error occur while fetching movies');
-    }
-    const json = (await response.json()) as MovieResponse;
-    json.results = shuffle(json.results);
-    return json;
-  } catch (error) {
-    throw new Error('An error occur, Try again');
-  }
-}
 
-export async function fetchDataWithPath(
+    if (!response.data) {
+      throw new Error('An error occurred while fetching movies');
+    }
+
+    response.data.results = shuffle(response.data.results);
+    return response.data as MovieResponse;
+  } catch (error) {
+    throw new Error('An error occurred, Try again');
+  }
+};
+
+export const fetchDataWithPath = async (
   path: string,
   page = 1,
-): Promise<MovieResponse> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/${path}?api_key=1b693bbcc6a6449176aeacae765433e2&page=${page}&region=VN&language=vi-VN`,
-    {method: 'GET'},
-  );
-  if (!response.ok) {
-    throw new Error('Unable to fetch movies');
-  }
-  const json = (await response.json()) as MovieResponse;
-  json.results = shuffle(json.results);
-  return json;
-}
+): Promise<MovieResponse> => {
+  try {
+    const response = await Api.get(
+      `/${path}?api_key=${API_KEY}&page=${page}&region=VN&language=vi-VN`,
+    );
 
-export async function fetchCasts(type: string, id: number): Promise<Cast[]> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}/credits?api_key=1b693bbcc6a6449176aeacae765433e2`,
-    {
-      method: 'GET',
-    },
-  );
-  if (response.ok) {
-    const json = (await response.json()) as CastResponse;
-    json.cast = shuffle(json.cast);
-    return json.cast;
-  } else {
-    console.log(`Error ${response.status}`);
+    if (!response.data) {
+      throw new Error('An error occurred while fetching movies');
+    }
+
+    response.data.results = shuffle(response.data.results);
+    return response.data as MovieResponse;
+  } catch (error) {
+    throw new Error('An error occurred, Try again');
+  }
+};
+
+export const fetchCasts = async (type: string, id: number): Promise<Cast[]> => {
+  try {
+    const response = await Api.get(`/${type}/${id}/credits?api_key=${API_KEY}`);
+
+    if (!response.data) {
+      return [];
+    }
+
+    response.data.cast = shuffle(response.data.cast);
+    return response.data.cast as Cast[];
+  } catch (error) {
     return [];
   }
-}
+};
 
-export async function fetchSimilarMoviesorTv(
+export const fetchSimilarMoviesorTv = async (
   type: string,
   movieId: number,
-): Promise<Movie[]> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/${type}/${movieId}/similar?api_key=1b693bbcc6a6449176aeacae765433e2`,
-    {method: 'GET'},
-  );
-  if (response.ok) {
-    const json = await response.json();
-    const result = json as MovieResponse;
-    return result.results;
-  } else {
-    console.log(`Error ${response.status}`);
+): Promise<Movie[]> => {
+  try {
+    const response = await Api.get(
+      `/${type}/${movieId}/similar?api_key=${API_KEY}`,
+    );
+
+    if (!response.data) {
+      return [];
+    }
+
+    response.data.results = shuffle(response.data.results);
+    return response.data.results as Movie[];
+  } catch (error) {
     return [];
   }
-}
+};
 
-export async function fetchTVWithType(
+export const fetchTVWithType = async (
   page: number = 1,
   type: string,
-): Promise<MovieResponse> {
-  console.log(`tv/${type}`);
+): Promise<MovieResponse> => {
+  try {
+    const response = await Api.get(
+      `/tv/${type}?api_key=${API_KEY}&page=${page}`,
+    );
 
-  const response = await fetch(
-    `https://api.themoviedb.org/3/tv/${type}?api_key=1b693bbcc6a6449176aeacae765433e2&page=${page}`,
-    {method: 'GET'},
-  );
-  if (!response.ok) {
-    throw new Error('An error occur while fetching movies');
+    if (!response.data) {
+      throw new Error('An error occurred while fetching movies');
+    }
+
+    response.data.results = shuffle(response.data.results);
+
+    return response?.data;
+  } catch (error) {
+    throw new Error('An error occurred, Try again');
   }
-  const json = (await response.json()) as MovieResponse;
-  json.results = shuffle(json.results);
-  return json;
-}
+};

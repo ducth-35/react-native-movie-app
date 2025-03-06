@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = `https://jsonplaceholder.typicode.com/`;
+const BASE_URL = `https://api.themoviedb.org/3`;
 
 const Api = axios.create({
   baseURL: BASE_URL,
@@ -27,9 +27,3 @@ Api.interceptors.response.use(
   },
 );
 export default Api;
-
-export const _endpoints = {
-  home: {
-   data: `todos/:id`,
-  },
-};

@@ -38,7 +38,7 @@ const TVShowsRoute = ({navigation, type}: TVShowsProps) => {
   return (
     <FlatList
       data={data.pages.flatMap(page => page.results)}
-      keyExtractor={item => item.id.toString()}
+      keyExtractor={item => item?.id?.toString()}
       renderItem={({item}) => (
         <MovieCard
           movie={item}

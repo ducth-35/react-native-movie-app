@@ -5,13 +5,14 @@ import {
   MovieSectionType,
 } from '../../components/movieSectionList';
 import {scale} from 'react-native-size-matters';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const HomeScreen: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{paddingTop: scale(40)}}>
+    <SafeAreaView
+      edges={{bottom: 'off', top: 'additive'}}
+      style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <MovieSectionList
           title="Trending Today"
           path={MovieSectionType.trending}
@@ -25,7 +26,7 @@ export const HomeScreen: React.FC = () => {
           path={MovieSectionType.popularTV}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

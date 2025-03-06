@@ -1,24 +1,25 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useCallback, useMemo} from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useCallback, useMemo } from 'react';
 import {
   Alert,
   Image,
   Linking,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {APP_SCREEN, RootStackParamList} from '../../navigators/screen-type';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import LinearGradient from 'react-native-linear-gradient';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
-import {useFavoriteStore} from '../../store/useFavoriteStore';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import CastSectionList from '../../components/castSectionList';
-import {RecommendationsList} from '../../components/recommendationsList';
-import {pop} from '../../navigators/navigation-services';
+import { RecommendationsList } from '../../components/recommendationsList';
+import { pop } from '../../navigators/navigation-services';
+import { APP_SCREEN, RootStackParamList } from '../../navigators/screen-type';
+import { useFavoriteStore } from '../../store/useFavoriteStore';
 
 type MovieDetailScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -29,7 +30,6 @@ export const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
   route,
 }) => {
   const movie = route?.params?.movie;
-  const {top} = useSafeAreaInsets();
   const setFavoriteMovie = useFavoriteStore(state => state.setMovie);
   const removeFavoriteMovies = useFavoriteStore(state => state.removeMovie);
   const isFavorite = useFavoriteStore(state => state.checkMovie(movie.id));
@@ -69,7 +69,9 @@ export const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.imageContainer}>
-        <View style={[styles.topButtonContainer, {top: top}]}>
+        <SafeAreaView
+          edges={{bottom: 'off', top: 'additive'}}
+          style={styles.topButtonContainer}>
           <View style={styles.circleButton}>
             <TouchableOpacity onPress={pop}>
               <Ionicons name="arrow-back" size={24} color={'white'} />
@@ -85,7 +87,7 @@ export const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
               />
             </TouchableOpacity>
           </View>
-        </View>
+        </SafeAreaView>
         <Image
           style={styles.backdropImage}
           source={{
@@ -113,7 +115,7 @@ export const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
           style={{
             flex: 1,
             flexDirection: 'row',
-            marginTop: top + 35,
+            marginTop: 20,
             marginBottom: 20,
             gap: 10,
           }}>
@@ -226,7 +228,8 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingBottom: 15,
   },
   backdropImage: {
     position: 'absolute',
@@ -242,13 +245,11 @@ const styles = StyleSheet.create({
     minHeight: 170,
   },
   topButtonContainer: {
-    position: 'absolute',
-    left: 20,
-    right: 20,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     zIndex: 1,
+    marginTop: Platform.OS === 'android' ? 20 : 0,
   },
   circleButton: {
     height: 40,
