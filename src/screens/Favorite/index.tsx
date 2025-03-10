@@ -2,7 +2,7 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import React, { useMemo } from 'react';
+import React, {useMemo} from 'react';
 import {
   FlatList,
   Image,
@@ -19,6 +19,7 @@ import EmptyContent from '../../components/empty';
 import {useFavoriteStore} from '../../store/useFavoriteStore';
 import {push} from '../../navigators/navigation-services';
 import {scale} from 'react-native-size-matters';
+import TextApp from '../../components/textApp';
 
 const FavoriteRoute = ({
   type,
@@ -55,7 +56,7 @@ const FavoriteRoute = ({
       />
     );
   }
-  
+
   return (
     <FlatList
       data={favoriteMovies}
@@ -90,17 +91,18 @@ const Item = ({item, onPress}: ItemProps) => {
         }}
       />
       <View style={styles.content}>
-        <Text numberOfLines={1} style={styles.itemTitle}>
+        <TextApp
+          preset="txt16SemiBold"
+          numberOfLines={1}
+          style={styles.itemTitle}>
           {item.title ?? item.name}
-        </Text>
+        </TextApp>
         {item.release_date && (
-          <Text style={styles.itemDate}>
+          <TextApp style={styles.itemDate}>
             {item.release_date ?? item.first_air_date}
-          </Text>
+          </TextApp>
         )}
-        <Text numberOfLines={3} style={styles.itemOverview}>
-          {item.overview}
-        </Text>
+        <TextApp numberOfLines={3}>{item.overview}</TextApp>
       </View>
     </TouchableOpacity>
   );
@@ -179,14 +181,9 @@ const styles = StyleSheet.create({
     gap: scale(10),
   },
   itemTitle: {
-    fontSize: scale(16),
-    fontWeight: '600',
-    color: 'black',
     marginTop: scale(5),
   },
   itemDate: {
-    fontSize: scale(14),
-    fontWeight: '400',
     color: 'grey',
   },
   itemOverview: {

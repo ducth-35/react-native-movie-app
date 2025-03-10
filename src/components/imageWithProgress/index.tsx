@@ -1,6 +1,7 @@
-import {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import TextApp from '../textApp';
 
 type ImageViewWithProgressProps = {
   imageUri: string;
@@ -62,9 +63,9 @@ const ImageViewWithProgess = ({
           backgroundColor={backgroundColor}
           rotation={0}>
           {_ => (
-            <Text style={styles.progressViewText}>
+            <TextApp preset="txt12Bold">
               {(progress * 10).toFixed() + '%'}
-            </Text>
+            </TextApp>
           )}
         </AnimatedCircularProgress>
       </View>
@@ -82,11 +83,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     borderRadius: 15,
   },
-  progressViewText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
+
   progressViewContainer: {
     position: 'absolute',
     backgroundColor: '#091619',

@@ -64,7 +64,7 @@ export const AllMovieScreen = ({route, navigation}: AllMovieScreenProps) => {
       },
       headerTransparent: false,
       headerBackTitleVisible: true,
-      headerBackTitle:'Back'
+      headerBackTitle: 'Back',
     });
   }, []);
 
@@ -94,6 +94,13 @@ export const AllMovieScreen = ({route, navigation}: AllMovieScreenProps) => {
     );
   };
 
+  const onEndReached = () => {
+    if (query != '') {
+      return;
+    }
+    fetchNextPage();
+  };
+
   return (
     <FlatList
       data={queryData}
@@ -106,7 +113,7 @@ export const AllMovieScreen = ({route, navigation}: AllMovieScreenProps) => {
       contentContainerStyle={{paddingHorizontal: 10}}
       columnWrapperStyle={{gap: 10}}
       style={{paddingVertical: 10, backgroundColor: 'white'}}
-      onEndReached={query != '' ? () => {} : () => fetchNextPage()}
+      onEndReached={onEndReached}
       onEndReachedThreshold={0.3}
       ListFooterComponent={() =>
         isFetchingNextPage ? <ActivityIndicator /> : null

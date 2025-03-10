@@ -1,6 +1,7 @@
 import {ComponentProps} from 'react';
 import {Text, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import TextApp from '../textApp';
 
 type EmptyContentProps = {
   title: string;
@@ -28,7 +29,7 @@ const EmptyContent = ({title, icon}: EmptyContentProps) => {
         }}>
         <Ionicons name={icon} size={24} color={'tomato'} />
       </View>
-      <Text style={{fontSize: 16, fontWeight: '500'}}>{title}</Text>
+      <TextApp preset="txt16Medium">{title}</TextApp>
     </View>
   );
 };

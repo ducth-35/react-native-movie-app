@@ -1,5 +1,5 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useCallback, useMemo } from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useCallback, useMemo} from 'react';
 import {
   Alert,
   Image,
@@ -11,15 +11,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import LinearGradient from 'react-native-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CastSectionList from '../../components/castSectionList';
-import { RecommendationsList } from '../../components/recommendationsList';
-import { pop } from '../../navigators/navigation-services';
-import { APP_SCREEN, RootStackParamList } from '../../navigators/screen-type';
-import { useFavoriteStore } from '../../store/useFavoriteStore';
+import {RecommendationsList} from '../../components/recommendationsList';
+import {pop} from '../../navigators/navigation-services';
+import {APP_SCREEN, RootStackParamList} from '../../navigators/screen-type';
+import {useFavoriteStore} from '../../store/useFavoriteStore';
+import TextApp from '../../components/textApp';
 
 type MovieDetailScreenProps = NativeStackScreenProps<
   RootStackParamList,
@@ -126,13 +127,13 @@ export const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
             style={styles.image}
           />
           <View style={{flex: 1, gap: 10}}>
-            <Text style={{fontSize: 24, fontWeight: 'bold', color: 'white'}}>
+            <TextApp preset="txt24Bold">
               {movie.title ?? movie.name} (
               {new Date(
                 movie.release_date ?? movie.first_air_date ?? '',
               ).getFullYear()}
               )
-            </Text>
+            </TextApp>
             <View
               style={{
                 flex: 1,
@@ -158,34 +159,28 @@ export const MovieDetailScreen: React.FC<MovieDetailScreenProps> = ({
                   backgroundColor={backgroundColor}
                   rotation={0}>
                   {_ => (
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 'bold',
-                        color: 'white',
-                      }}>
+                    <TextApp preset="txt12Bold">
                       {(movie.vote_average * 10).toFixed() + '%'}
-                    </Text>
+                    </TextApp>
                   )}
                 </AnimatedCircularProgress>
               </View>
-              <Text style={{color: 'white', fontWeight: 'bold'}}>
+              <TextApp style={{color: 'white', fontWeight: 'bold'}}>
                 {'User\nScore'}
-              </Text>
+              </TextApp>
             </View>
             {movie.overview && (
               <>
                 <View
                   style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
-                  <Text
-                    style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>
+                  <TextApp preset="txt18Bold" style={{color: 'white'}}>
                     Overview
-                  </Text>
+                  </TextApp>
                   <Ionicons name="information-circle" size={20} color="white" />
                 </View>
-                <Text numberOfLines={4} style={{fontSize: 12, color: 'white'}}>
+                <TextApp preset="txt12Regular" numberOfLines={4}>
                   {movie.overview}
-                </Text>
+                </TextApp>
               </>
             )}
           </View>

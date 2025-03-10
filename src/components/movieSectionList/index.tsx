@@ -13,6 +13,7 @@ import {useMoviesHome} from '../../hooks/useMoviesHome';
 import {MovieCard} from '../movieCard';
 import {navigate} from '../../navigators/navigation-services';
 import {APP_SCREEN} from '../../navigators/screen-type';
+import TextApp from '../textApp';
 
 export enum MovieSectionType {
   trending = 'trending/movie/day',
@@ -47,14 +48,14 @@ export const MovieSectionList = ({title, path}: MovieSectionListProps) => {
   };
 
   if (error) {
-    return <Text>Error loading movies</Text>;
+    return <TextApp>Error loading movies</TextApp>;
   }
   return (
     <View style={styles.container}>
       <View style={styles.headerText}>
-        <Text style={styles.title}>{title}</Text>
+        <TextApp preset="txt18Bold">{title}</TextApp>
         <TouchableOpacity onPress={handleSeeAll}>
-          <Text>See all</Text>
+          <TextApp>See all</TextApp>
         </TouchableOpacity>
       </View>
       {loading ? (
@@ -67,7 +68,10 @@ export const MovieSectionList = ({title, path}: MovieSectionListProps) => {
           horizontal={true}
           ItemSeparatorComponent={ItemSeparator}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingHorizontal: 10}}
+          contentContainerStyle={{
+            paddingHorizontal: 10,
+            marginBottom: scale(15),
+          }}
           initialNumToRender={5}
         />
       )}
@@ -77,7 +81,6 @@ export const MovieSectionList = ({title, path}: MovieSectionListProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: scale(15),
   },
   headerText: {
     flex: 1,
@@ -86,9 +89,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: scale(10),
     marginBottom: scale(10),
-  },
-  title: {
-    fontSize: scale(18),
-    fontWeight: '800',
   },
 });

@@ -1,7 +1,8 @@
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
-import { fetchCasts } from '../../apis/api';
-import { CastSkeleton } from '../castSkeleton';
+import {fetchCasts} from '../../apis/api';
+import {CastSkeleton} from '../castSkeleton';
+import TextApp from '../textApp';
 
 type CastSectionListProps = {
   title: string;
@@ -19,12 +20,14 @@ const CastSectionList = ({title, id, type}: CastSectionListProps) => {
   });
 
   if (error) {
-    return <Text>An Error occur</Text>;
+    return <TextApp>An Error occur</TextApp>;
   }
   return (
     <View style={styles.container}>
       {(loading || casts.length > 0) && (
-        <Text style={styles.title}>{title}</Text>
+        <TextApp preset="txt18Bold" style={styles.title}>
+          {title}
+        </TextApp>
       )}
       {loading ? (
         <CastSkeleton />
@@ -57,12 +60,15 @@ const Item = ({item}: ItemProps) => {
           uri: `https://image.tmdb.org/t/p/w500/${item.profile_path}`,
         }}
       />
-      <Text numberOfLines={1} style={styles.itemTitle}>
+      <TextApp
+        preset="txt14SemiBold"
+        numberOfLines={1}
+        style={styles.itemTitle}>
         {item.name}
-      </Text>
-      <Text numberOfLines={2} style={styles.itemDate}>
+      </TextApp>
+      <TextApp numberOfLines={2} style={styles.itemDate}>
         {item.character}
-      </Text>
+      </TextApp>
     </View>
   );
 };
@@ -78,8 +84,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
   },
   title: {
-    fontSize: 18,
-    fontWeight: '800',
     margin: 10,
   },
   itemContainer: {
@@ -89,14 +93,9 @@ const styles = StyleSheet.create({
     maxWidth: 120,
   },
   itemTitle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: 'black',
     marginTop: 5,
   },
   itemDate: {
-    fontSize: 14,
-    fontWeight: '400',
     color: 'grey',
   },
 });

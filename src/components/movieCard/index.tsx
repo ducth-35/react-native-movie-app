@@ -1,6 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableWithoutFeedback, View, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
 import ImageViewWithProgess from '../imageWithProgress';
+import TextApp from '../textApp';
 
 type MovieCardProps = {
   movie: Movie;
@@ -16,13 +23,13 @@ export const MovieCard = ({movie, onPress, style}: MovieCardProps) => {
           imageUri={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`}
           progress={movie?.vote_average}
         />
-        <Text numberOfLines={1} style={styles.title}>
+        <TextApp preset="txt16SemiBold" numberOfLines={1} style={styles.title}>
           {movie?.title ?? movie?.name}
-        </Text>
+        </TextApp>
         {(movie?.release_date || movie?.first_air_date) && (
-          <Text style={styles.date}>
+          <TextApp style={styles.date}>
             {movie?.release_date ?? movie?.first_air_date}
-          </Text>
+          </TextApp>
         )}
       </View>
     </TouchableWithoutFeedback>
@@ -34,14 +41,9 @@ const styles = StyleSheet.create({
     gap: 5,
   },
   title: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: 'black',
     marginTop: 5,
   },
   date: {
-    fontSize: 14,
-    fontWeight: '400',
     color: 'grey',
   },
 });

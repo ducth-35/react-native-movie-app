@@ -1,11 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { fetchSimilarMoviesorTv } from '../../apis/api';
-import { navigate } from '../../navigators/navigation-services';
-import { APP_SCREEN } from '../../navigators/screen-type';
-import { MovieCard } from '../movieCard';
-import { SkeletonLoading } from '../skeleton';
+import {useQuery} from '@tanstack/react-query';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {scale} from 'react-native-size-matters';
+import {fetchSimilarMoviesorTv} from '../../apis/api';
+import {navigate} from '../../navigators/navigation-services';
+import {APP_SCREEN} from '../../navigators/screen-type';
+import {MovieCard} from '../movieCard';
+import {SkeletonLoading} from '../skeleton';
+import TextApp from '../textApp';
 
 type RecommendationsListProps = {
   movieId: number;
@@ -29,12 +30,14 @@ export const RecommendationsList = ({
   };
 
   if (error) {
-    return <Text>Error loading movies</Text>;
+    return <TextApp>Error loading movies</TextApp>;
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recommendations</Text>
+      <TextApp preset="txt18Bold" style={styles.title}>
+        Recommendations
+      </TextApp>
       {loading ? (
         <SkeletonLoading />
       ) : (
@@ -75,8 +78,6 @@ const styles = StyleSheet.create({
     marginBottom: scale(10),
   },
   title: {
-    fontSize: scale(18),
-    fontWeight: '800',
     marginHorizontal: scale(15),
     marginBottom: scale(10),
   },
