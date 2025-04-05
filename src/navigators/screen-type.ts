@@ -9,6 +9,7 @@ export enum APP_SCREEN {
   FAVORITES_SCREEN = 'FAVORITES_SCREEN',
   MOVIE_DETAIL_SCREEN = 'MOVIE_DETAIL_SCREEN',
   ALL_MOVIES_SCREEN = 'ALL_MOVIES_SCREEN',
+  SETTINGS_SCREEN = 'SETTINGS_SCREEN',
 }
 
 export type RootStackParamList = {
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   [APP_SCREEN.TV_SHOW_SCREEN]: undefined;
   [APP_SCREEN.FAVORITES_SCREEN]: undefined;
   [APP_SCREEN.ALL_MOVIES_SCREEN]: {title: string; type: string};
+  [APP_SCREEN.SETTINGS_SCREEN]: undefined;
 };
 
 export type StackScreenProps<T extends keyof RootStackParamList> =

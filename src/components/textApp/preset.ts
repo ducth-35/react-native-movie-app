@@ -29,6 +29,7 @@ export const textPresets = StyleSheet.create({
     color: 'black',
     fontSize: 14,
   },
+
   txt16SemiBold: {
     fontFamily: fontDefault.semiBold,
     color: 'black',

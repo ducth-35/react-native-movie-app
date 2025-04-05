@@ -7,6 +7,7 @@ import {
   TVShowScreen,
 } from '../screens';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {SettingsScreen} from '../screens/Settings';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -68,6 +69,20 @@ export const TabNavigator = () => {
           tabBarIcon: ({focused, size, color}) => (
             <Ionicons
               name={focused ? 'heart' : 'heart-outline'}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={APP_SCREEN.SETTINGS_SCREEN}
+        component={SettingsScreen}
+        options={{
+          tabBarLabel: 'Settings',
+          tabBarIcon: ({focused, size, color}) => (
+            <Ionicons
+              name={focused ? 'settings' : 'settings-outline'}
               size={size}
               color={color}
             />
