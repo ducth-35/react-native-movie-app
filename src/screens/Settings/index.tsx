@@ -11,12 +11,13 @@ export const SettingsScreen: React.FC = () => {
         About the App
       </TextApp>
       <TextApp preset="txt16Medium" style={styles.text}>
-        App Name: A simple and clean movie browsing app.
+        App Name: MovieList – A simple and clean movie browsing app.
       </TextApp>
       <TextApp preset="txt16Medium" style={styles.text}>
-        Purpose: To display movie lists such as Trending Today, Popular Movies,
-        and more using data from The Movie Database (TMDb).
+        Purpose: To display curated movie lists such as Trending Today, Popular
+        Movies, and more using data from The Movie Database (TMDb).
       </TextApp>
+
       <TextApp preset="txt18Bold" style={styles.heading}>
         Data Source
       </TextApp>
@@ -30,12 +31,13 @@ export const SettingsScreen: React.FC = () => {
         “This product uses the TMDb API but is not endorsed or certified by
         TMDb.”
       </TextApp>
+
       <TextApp preset="txt18Bold" style={styles.heading}>
         Privacy Policy
       </TextApp>
       <TextApp preset="txt16Medium" style={styles.text}>
         We do not collect any personal data from users. All data is fetched only
-        for displaying movie information.
+        for the purpose of displaying movie information.
       </TextApp>
     </SafeAreaView>
   );
